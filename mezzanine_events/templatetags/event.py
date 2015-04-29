@@ -33,6 +33,13 @@ def google_nav_url(event):
     location = quote(event.mappable_location)
     return "https://{}/maps?daddr={}".format(settings.MZEVENTS_GOOGLE_MAPS_DOMAIN, location)
 
+@register.filter(is_safe=True)
+def get_container_by_keyword(keyword):
+    container = EventContainer.keywords.filter(keywords__contains=keyword)
+    if (len(container)>0):
+        return container[0]
+    return None
+
 @register.tag
 def google_static_map(parser, token):
     try:
@@ -40,6 +47,7 @@ def google_static_map(parser, token):
     except ValueError:
         raise template.TemplateSyntaxError('google_static_map requires an event, width, height and zoom level')
     return GoogleStaticMapNode(event, width, height, zoom)
+
 
 class GoogleStaticMapNode (template.Node):
     def __init__(self, e, w, h, z):
