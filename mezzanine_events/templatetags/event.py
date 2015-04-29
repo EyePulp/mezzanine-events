@@ -40,6 +40,7 @@ def get_container_by_keyword(keyword):
         return container[0]
     return None
 
+
 @register.tag
 def google_static_map(parser, token):
     try:
