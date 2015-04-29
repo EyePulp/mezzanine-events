@@ -35,7 +35,7 @@ def google_nav_url(event):
 
 @register.assignment_tag
 def get_container_by_keyword(keyword):
-    container = EventContainer.keywords.filter(keywords_string__contains=keyword.lower())
+    container = EventContainer.objects.filter(keywords_string__contains=keyword.lower())
     if (len(container)>0):
         return container[0]
     return None
