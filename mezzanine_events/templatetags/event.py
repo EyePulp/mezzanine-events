@@ -33,7 +33,7 @@ def google_nav_url(event):
     location = quote(event.mappable_location)
     return "https://{}/maps?daddr={}".format(settings.MZEVENTS_GOOGLE_MAPS_DOMAIN, location)
 
-@register.filter(is_safe=True)
+@register.assignment_tag
 def get_container_by_keyword(keyword):
     container = EventContainer.keywords.filter(keywords__contains=keyword)
     if (len(container)>0):
